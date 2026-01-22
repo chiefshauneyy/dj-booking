@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content="Book DJ — Weddings, Clubs, Private Events. Professional sound, clean transitions, unforgettable nights." />
-  <title>DJ Booking — Your DJ Name</title>
+  <title>DJ Booking — Reup</title>
 
   <style>
     :root{
@@ -156,6 +156,7 @@
       letter-spacing: .18em;
       text-transform: uppercase;
       font-size: .85rem;
+      flex-wrap: wrap;
     }
     .kicker .pill{
       border: 1px solid var(--line);
@@ -391,24 +392,23 @@
       <div class="panel heroRight" id="media">
         <div class="cardTitle">
           <h2>Featured mix</h2>
-          <span class="tag">SoundCloud / YouTube</span>
+          <span class="tag">SoundCloud</span>
         </div>
 
         <div class="media">
-          <div class="embed" aria-label="Mix embed">
-            <!-- Replace with your buddy’s YouTube or SoundCloud embed -->
+          <div class="embed" aria-label="SoundCloud embed">
+            <!-- Replace the src below with your buddy’s SoundCloud embed link -->
             <iframe
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-              title="DJ Mix"
+              src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/encodedna/sets/top-10-english-songs&color=%230b0d12&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+              title="SoundCloud player"
               loading="lazy"
               referrerpolicy="no-referrer"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen>
+              allow="autoplay">
             </iframe>
           </div>
 
           <div class="note" id="mixNote">
-            Swap this embed with a real set. This section helps convert visitors who want to “hear the vibe” before booking.
+            Swap this embed with a real SoundCloud mix. This section helps convert visitors who want to hear the vibe before booking.
           </div>
         </div>
       </div>
@@ -491,11 +491,6 @@
       </div>
 
       <div class="panel" style="padding: 18px;">
-        <!--
-          FORM SETUP:
-          - For GitHub Pages, use a third-party form endpoint like Formspree.
-          - Create a Formspree form and replace FORM_ACTION in the script below.
-        -->
         <div class="success" id="successBox">✅ Request sent. I’ll get back to you shortly.</div>
         <div class="error" id="errorBox">⚠️ Something went wrong. Try again or DM on Instagram.</div>
 
@@ -563,7 +558,6 @@
       <div class="social">
         <a class="chip" id="igChip" href="#" target="_blank" rel="noopener">Instagram</a>
         <a class="chip" id="scChip" href="#" target="_blank" rel="noopener">SoundCloud</a>
-        <a class="chip" id="ytChip" href="#" target="_blank" rel="noopener">YouTube</a>
       </div>
       <div class="chip">© <span id="year"></span></div>
     </div>
@@ -573,17 +567,17 @@
     // ====== QUICK CONFIG (edit these) ======
     const SITE = {
       brandName: "Reup",
-      locationLine: "San Antonio • Austin • TX",
+      locationLine: "Los Angeles • Pomona • CA",
       headline: "High-energy sets. Clean transitions. Packed dancefloors.",
       subhead: "Weddings, clubs, private events, corporate nights — tailored music, professional sound, and a smooth experience from first message to last track.",
       instagramUrl: "https://www.instagram.com/reupdotcom/",
       soundcloudUrl: "https://soundcloud.com/",
-      youtubeUrl: "https://youtube.com/",
       // Formspree endpoint example: "https://formspree.io/f/xxxxxxxx"
       FORM_ACTION: "" // leave blank for now (site will show friendly error on submit)
     };
 
     // Apply config
+    document.title = `DJ Booking — ${SITE.brandName}`;
     document.getElementById("brandName").textContent = SITE.brandName;
     document.querySelectorAll("footer .brand span:last-child").forEach(el => el.textContent = SITE.brandName);
     document.getElementById("locationText").textContent = SITE.locationLine;
@@ -594,7 +588,6 @@
     ig.forEach(a => { a.href = SITE.instagramUrl; });
 
     document.getElementById("scChip").href = SITE.soundcloudUrl;
-    document.getElementById("ytChip").href = SITE.youtubeUrl;
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -616,7 +609,11 @@
 
       try {
         const fd = new FormData(form);
-        const res = await fetch(SITE.FORM_ACTION, { method: "POST", body: fd, headers: { "Accept": "application/json" } });
+        const res = await fetch(SITE.FORM_ACTION, {
+          method: "POST",
+          body: fd,
+          headers: { "Accept": "application/json" }
+        });
 
         if (!res.ok) throw new Error("Bad response");
         form.reset();
