@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Book DJ — Weddings, Clubs, Private Events. Professional sound, clean transitions, unforgettable nights." />
+  <title>DJ Booking — Your DJ Name</title>
+
+  <style>
+    :root{
+      --bg: #0b0d12;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.09);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --line: rgba(255,255,255,.12);
+
+      --hue: 205;
+      --accent: hsl(var(--hue) 100% 65%);
+      --accent2: hsl(calc(var(--hue) + 40) 100% 65%);
+      --danger: #ff4d6d;
+
+      --radius: 22px;
+      --shadow: 0 30px 80px rgba(0,0,0,.45);
+      --max: 1100px;
+    }
+
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg: #f6f7fb;
+        --card: rgba(0,0,0,.04);
+        --card2: rgba(0,0,0,.07);
+        --text: rgba(0,0,0,.88);
+        --muted: rgba(0,0,0,.65);
+        --line: rgba(0,0,0,.12);
+        --shadow: 0 26px 70px rgba(0,0,0,.12);
+      }
+    }
+
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .wrap{ width: min(var(--max), 92vw); margin: 0 auto; }
+
+    /* Subtle animated background */
+    .bgGlow{
+      position: fixed;
+      inset: -40%;
+      z-index: -5;
+      background:
+        radial-gradient(circle at 30% 20%, hsl(var(--hue) 100% 60% / .16), transparent 55%),
+        radial-gradient(circle at 70% 60%, hsl(calc(var(--hue) + 60) 100% 60% / .12), transparent 60%),
+        radial-gradient(circle at 50% 80%, hsl(calc(var(--hue) - 40) 100% 60% / .10), transparent 60%);
+      filter: blur(40px);
+      animation: drift 14s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes drift { 0%{ transform: translate3d(0,0,0); } 50%{ transform: translate3d(-1.5%, 1%,0); } 100%{ transform: translate3d(0,0,0); } }
+
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: color-mix(in oklab, var(--bg) 85%, transparent);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 900;
+      letter-spacing: .02em;
+    }
+    .dot{
+      width: 11px; height: 11px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 18px hsl(var(--hue) 100% 65% / .45);
+    }
+    .links{
+      display:flex; gap: 14px; align-items:center;
+      font-weight: 650;
+      color: var(--muted);
+    }
+    .links a{ padding: 10px 10px; border-radius: 12px; }
+    .links a:hover{ background: var(--card); color: var(--text); }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: var(--card);
+      box-shadow: 0 14px 40px rgba(0,0,0,.12);
+      font-weight: 750;
+      cursor: pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select: none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: var(--card2); border-color: color-mix(in oklab, var(--line) 60%, var(--accent) 40%); }
+    .btn.primary{
+      border: 1px solid color-mix(in oklab, var(--accent) 65%, var(--line) 35%);
+      background: linear-gradient(135deg, hsl(var(--hue) 100% 58% / .28), hsl(calc(var(--hue) + 40) 100% 58% / .18));
+    }
+
+    /* HERO */
+    .hero{
+      padding: 56px 0 26px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .links{ display:none; }
+    }
+
+    .panel{
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .heroLeft{
+      padding: clamp(18px, 4vw, 34px);
+      position: relative;
+    }
+    .kicker{
+      display:inline-flex;
+      gap: 10px;
+      align-items:center;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: .85rem;
+    }
+    .kicker .pill{
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: color-mix(in oklab, var(--card) 70%, transparent);
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(2.2rem, 4.3vw, 3.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .lead{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 1.6vw, 1.15rem);
+      max-width: 60ch;
+    }
+
+    .heroActions{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+    @media (max-width: 520px){
+      .stats{ grid-template-columns: 1fr; }
+    }
+    .stat{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: color-mix(in oklab, var(--card) 70%, transparent);
+    }
+    .stat b{ display:block; font-size: 1.12rem; }
+    .stat span{ color: var(--muted); font-weight: 650; font-size: .92rem; }
+
+    /* Right hero: embed + quick info */
+    .heroRight{ padding: 18px; }
+    .cardTitle{ display:flex; align-items:center; justify-content:space-between; gap: 10px; padding: 16px; border-bottom: 1px solid var(--line); }
+    .cardTitle h2{ margin: 0; font-size: 1.05rem; letter-spacing: .02em; }
+    .cardTitle .tag{ font-size: .9rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 7px 10px; background: var(--card); }
+
+    .media{
+      padding: 16px;
+      display:grid;
+      gap: 12px;
+    }
+    .embed{
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 16 / 9;
+    }
+    .embed iframe{ width: 100%; height: 100%; border: 0; }
+
+    .note{
+      color: var(--muted);
+      font-weight: 650;
+      font-size: .95rem;
+      line-height: 1.35;
+    }
+
+    /* Sections */
+    section{ padding: 26px 0; }
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .sectionHead h3{
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: .01em;
+    }
+    .sectionHead p{ margin: 0; color: var(--muted); max-width: 70ch; }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 900px){ .grid3{ grid-template-columns: 1fr; } }
+
+    .tile{
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+    .tile h4{ margin: 10px 0 8px; font-size: 1.05rem; }
+    .tile p{ margin: 0; color: var(--muted); line-height: 1.5; }
+    .icon{
+      width: 42px; height: 42px; border-radius: 14px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, hsl(var(--hue) 100% 60% / .25), hsl(calc(var(--hue) + 40) 100% 60% / .12));
+      border: 1px solid color-mix(in oklab, var(--line) 55%, var(--accent) 45%);
+    }
+
+    /* Pricing */
+    .price{
+      display:flex; align-items:baseline; gap: 10px;
+      margin: 10px 0 12px;
+    }
+    .price b{ font-size: 1.8rem; }
+    .price span{ color: var(--muted); font-weight: 650; }
+    ul.clean{ margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.65; }
+
+    /* Booking form */
+    form{ display:grid; gap: 12px; }
+    .formGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 900px){ .formGrid{ grid-template-columns: 1fr; } }
+
+    label{ display:grid; gap: 7px; font-weight: 750; font-size: .92rem; }
+    input, select, textarea{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: color-mix(in oklab, var(--card) 78%, transparent);
+      color: var(--text);
+      outline: none;
+      font: inherit;
+    }
+    textarea{ min-height: 120px; resize: vertical; }
+    input:focus, select:focus, textarea:focus{
+      border-color: color-mix(in oklab, var(--accent) 70%, var(--line) 30%);
+      box-shadow: 0 0 0 3px hsl(var(--hue) 100% 60% / .18);
+    }
+
+    .fineprint{ color: var(--muted); font-size: .92rem; line-height: 1.45; }
+    .success, .error{
+      display:none;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      font-weight: 700;
+    }
+    .success{ border-color: color-mix(in oklab, var(--accent) 60%, var(--line) 40%); }
+    .error{ border-color: color-mix(in oklab, var(--danger) 60%, var(--line) 40%); }
+
+    footer{
+      padding: 26px 0 40px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      margin-top: 18px;
+    }
+    .footerRow{
+      display:flex; justify-content: space-between; align-items:center; gap: 16px; flex-wrap: wrap;
+      padding-top: 16px;
+    }
+    .social{ display:flex; gap: 10px; }
+    .chip{
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-weight: 750;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bgGlow" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="brandName">DJ Buddy</span>
+      </div>
+      <nav class="links" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#pricing">Packages</a>
+        <a href="#media">Mixes</a>
+        <a href="#booking">Book</a>
+      </nav>
+      <a class="btn primary" href="#booking">Check availability</a>
+    </div>
+  </header>
+
+  <main class="wrap hero" id="top">
+    <div class="heroGrid">
+      <div class="panel heroLeft">
+        <div class="kicker">
+          <span class="pill">Bookings Open</span>
+          <span class="pill" id="locationText">San Antonio • Austin • TX</span>
+        </div>
+
+        <h1 id="headline">High-energy sets. Clean transitions. Packed dancefloors.</h1>
+        <p class="lead" id="subhead">
+          Weddings, clubs, private events, corporate nights — tailored music, professional sound, and a smooth experience from first message to last track.
+        </p>
+
+        <div class="heroActions">
+          <a class="btn primary" href="#booking">Book now</a>
+          <a class="btn" href="#media">Listen to mixes</a>
+          <a class="btn" id="igBtn" href="#" target="_blank" rel="noopener">Instagram</a>
+        </div>
+
+        <div class="stats" aria-label="Highlights">
+          <div class="stat">
+            <b id="stat1Top">5+ years</b>
+            <span id="stat1Bot">performing live</span>
+          </div>
+          <div class="stat">
+            <b id="stat2Top">Pro setup</b>
+            <span id="stat2Bot">sound + mic support</span>
+          </div>
+          <div class="stat">
+            <b id="stat3Top">Fast response</b>
+            <span id="stat3Bot">quotes in 24 hrs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel heroRight" id="media">
+        <div class="cardTitle">
+          <h2>Featured mix</h2>
+          <span class="tag">SoundCloud / YouTube</span>
+        </div>
+
+        <div class="media">
+          <div class="embed" aria-label="Mix embed">
+            <!-- Replace with your buddy’s YouTube or SoundCloud embed -->
+            <iframe
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              title="DJ Mix"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <div class="note" id="mixNote">
+            Swap this embed with a real set. This section helps convert visitors who want to “hear the vibe” before booking.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="services">
+      <div class="sectionHead">
+        <div>
+          <h3>Services</h3>
+          <p>Pick what you need — I’ll tailor the set, pacing, and transitions to your crowd and timeline.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="tile">
+          <div class="icon" aria-hidden="true">🎉</div>
+          <h4>Private events</h4>
+          <p>Birthdays, graduations, house parties, rooftop nights — clean energy and genre control.</p>
+        </div>
+        <div class="tile">
+          <div class="icon" aria-hidden="true">💍</div>
+          <h4>Weddings</h4>
+          <p>Ceremony audio, mic support, curated sets for cocktail + reception, and a smooth MC flow.</p>
+        </div>
+        <div class="tile">
+          <div class="icon" aria-hidden="true">🏢</div>
+          <h4>Corporate</h4>
+          <p>Professional, punctual, and adaptable. Perfect for mixers, launches, and holiday events.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="sectionHead">
+        <div>
+          <h3>Packages</h3>
+          <p>Simple tiers. Transparent pricing. Custom quotes for travel + special production.</p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="tile">
+          <h4>Essential</h4>
+          <div class="price"><b>$___</b><span>starting</span></div>
+          <ul class="clean">
+            <li>Up to 2 hours</li>
+            <li>Curated set</li>
+            <li>Basic sound setup</li>
+          </ul>
+        </div>
+
+        <div class="tile" style="border-color: color-mix(in oklab, var(--accent) 55%, var(--line) 45%);">
+          <h4>Prime</h4>
+          <div class="price"><b>$___</b><span>starting</span></div>
+          <ul class="clean">
+            <li>Up to 4 hours</li>
+            <li>Mic support</li>
+            <li>Pre-event planning call</li>
+          </ul>
+        </div>
+
+        <div class="tile">
+          <h4>Full Experience</h4>
+          <div class="price"><b>$___</b><span>starting</span></div>
+          <ul class="clean">
+            <li>Up to 6 hours</li>
+            <li>Lighting add-on option</li>
+            <li>Timeline + crowd pacing</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="booking">
+      <div class="sectionHead">
+        <div>
+          <h3>Booking request</h3>
+          <p>Send details and I’ll reply with availability + a quote. (No spam, just business.)</p>
+        </div>
+      </div>
+
+      <div class="panel" style="padding: 18px;">
+        <!--
+          FORM SETUP:
+          - For GitHub Pages, use a third-party form endpoint like Formspree.
+          - Create a Formspree form and replace FORM_ACTION in the script below.
+        -->
+        <div class="success" id="successBox">✅ Request sent. I’ll get back to you shortly.</div>
+        <div class="error" id="errorBox">⚠️ Something went wrong. Try again or DM on Instagram.</div>
+
+        <form id="bookingForm" method="POST">
+          <div class="formGrid">
+            <label>
+              Name
+              <input name="name" autocomplete="name" required placeholder="Your name" />
+            </label>
+
+            <label>
+              Email
+              <input type="email" name="email" autocomplete="email" required placeholder="you@email.com" />
+            </label>
+
+            <label>
+              Phone (optional)
+              <input name="phone" autocomplete="tel" placeholder="(###) ###-####" />
+            </label>
+
+            <label>
+              Event type
+              <select name="eventType" required>
+                <option value="" selected disabled>Select one</option>
+                <option>Private event</option>
+                <option>Wedding</option>
+                <option>Club / Bar</option>
+                <option>Corporate</option>
+                <option>Other</option>
+              </select>
+            </label>
+
+            <label>
+              Date
+              <input type="date" name="date" required />
+            </label>
+
+            <label>
+              City / Venue
+              <input name="location" required placeholder="City + venue name" />
+            </label>
+          </div>
+
+          <label>
+            Details
+            <textarea name="details" required placeholder="Start/end time, vibe/genres, estimated crowd size, any special requests…"></textarea>
+          </label>
+
+          <button class="btn primary" type="submit">Send request</button>
+
+          <p class="fineprint">
+            Tip: If you already have a playlist or “must-play / do-not-play,” mention it here — it helps lock the vibe faster.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footerRow">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>DJ Buddy</span>
+      </div>
+      <div class="social">
+        <a class="chip" id="igChip" href="#" target="_blank" rel="noopener">Instagram</a>
+        <a class="chip" id="scChip" href="#" target="_blank" rel="noopener">SoundCloud</a>
+        <a class="chip" id="ytChip" href="#" target="_blank" rel="noopener">YouTube</a>
+      </div>
+      <div class="chip">© <span id="year"></span></div>
+    </div>
+  </footer>
+
+  <script>
+    // ====== QUICK CONFIG (edit these) ======
+    const SITE = {
+      brandName: "DJ Buddy",
+      locationLine: "San Antonio • Austin • TX",
+      headline: "High-energy sets. Clean transitions. Packed dancefloors.",
+      subhead: "Weddings, clubs, private events, corporate nights — tailored music, professional sound, and a smooth experience from first message to last track.",
+      instagramUrl: "https://instagram.com/",
+      soundcloudUrl: "https://soundcloud.com/",
+      youtubeUrl: "https://youtube.com/",
+      // Formspree endpoint example: "https://formspree.io/f/xxxxxxxx"
+      FORM_ACTION: "" // leave blank for now (site will show friendly error on submit)
+    };
+
+    // Apply config
+    document.getElementById("brandName").textContent = SITE.brandName;
+    document.querySelectorAll("footer .brand span:last-child").forEach(el => el.textContent = SITE.brandName);
+    document.getElementById("locationText").textContent = SITE.locationLine;
+    document.getElementById("headline").textContent = SITE.headline;
+    document.getElementById("subhead").textContent = SITE.subhead;
+
+    const ig = [document.getElementById("igBtn"), document.getElementById("igChip")];
+    ig.forEach(a => { a.href = SITE.instagramUrl; });
+
+    document.getElementById("scChip").href = SITE.soundcloudUrl;
+    document.getElementById("ytChip").href = SITE.youtubeUrl;
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Form handling (works with Formspree or similar)
+    const form = document.getElementById("bookingForm");
+    const successBox = document.getElementById("successBox");
+    const errorBox = document.getElementById("errorBox");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      successBox.style.display = "none";
+      errorBox.style.display = "none";
+
+      if (!SITE.FORM_ACTION) {
+        errorBox.textContent = "⚠️ Form endpoint not set yet. Add a Formspree URL to SITE.FORM_ACTION or use Instagram DM for now.";
+        errorBox.style.display = "block";
+        return;
+      }
+
+      try {
+        const fd = new FormData(form);
+        const res = await fetch(SITE.FORM_ACTION, { method: "POST", body: fd, headers: { "Accept": "application/json" } });
+
+        if (!res.ok) throw new Error("Bad response");
+        form.reset();
+        successBox.style.display = "block";
+      } catch (err) {
+        errorBox.textContent = "⚠️ Something went wrong. Try again or DM on Instagram.";
+        errorBox.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
