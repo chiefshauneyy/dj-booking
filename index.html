@@ -121,9 +121,7 @@
     }
 
     /* HERO */
-    .hero{
-      padding: 56px 0 26px;
-    }
+    .hero{ padding: 56px 0 26px; }
     .heroGrid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
@@ -143,10 +141,7 @@
       overflow: hidden;
     }
 
-    .heroLeft{
-      padding: clamp(18px, 4vw, 34px);
-      position: relative;
-    }
+    .heroLeft{ padding: clamp(18px, 4vw, 34px); position: relative; }
     .kicker{
       display:inline-flex;
       gap: 10px;
@@ -202,32 +197,42 @@
     .stat b{ display:block; font-size: 1.12rem; }
     .stat span{ color: var(--muted); font-weight: 650; font-size: .92rem; }
 
-    /* Right hero: embed + quick info */
-    .heroRight{ padding: 18px; }
-    .cardTitle{ display:flex; align-items:center; justify-content:space-between; gap: 10px; padding: 16px; border-bottom: 1px solid var(--line); }
+    /* Right hero: "Media" card */
+    .heroRight{ padding: 0; }
+    .cardTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+    }
     .cardTitle h2{ margin: 0; font-size: 1.05rem; letter-spacing: .02em; }
-    .cardTitle .tag{ font-size: .9rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 7px 10px; background: var(--card); }
+    .cardTitle .tag{
+      font-size: .9rem;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: var(--card);
+    }
 
-    .media{
+    .mediaCard{
       padding: 16px;
       display:grid;
       gap: 12px;
     }
-    .embed{
+    .mediaBlock{
       border: 1px solid var(--line);
       border-radius: 18px;
-      overflow: hidden;
-      background: #000;
-      aspect-ratio: 16 / 9;
+      background: color-mix(in oklab, var(--card) 78%, transparent);
+      padding: 16px;
+      display:grid;
+      gap: 10px;
     }
-    .embed iframe{ width: 100%; height: 100%; border: 0; }
-
-    .note{
-      color: var(--muted);
-      font-weight: 650;
-      font-size: .95rem;
-      line-height: 1.35;
-    }
+    .mediaBlock b{ font-size: 1.05rem; }
+    .mediaBlock p{ margin: 0; color: var(--muted); line-height: 1.5; }
+    .mediaActions{ display:flex; flex-wrap: wrap; gap: 10px; }
 
     /* Sections */
     section{ padding: 26px 0; }
@@ -347,7 +352,7 @@
       <nav class="links" aria-label="Primary">
         <a href="#services">Services</a>
         <a href="#pricing">Packages</a>
-        <a href="#media">Mixes</a>
+        <a href="#media">Media</a>
         <a href="#booking">Book</a>
       </nav>
       <a class="btn primary" href="#booking">Check availability</a>
@@ -369,7 +374,7 @@
 
         <div class="heroActions">
           <a class="btn primary" href="#booking">Book now</a>
-          <a class="btn" href="#media">Listen to mixes</a>
+          <a class="btn" href="#media">See media</a>
           <a class="btn" id="igBtn" href="#" target="_blank" rel="noopener">Instagram</a>
         </div>
 
@@ -391,24 +396,30 @@
 
       <div class="panel heroRight" id="media">
         <div class="cardTitle">
-          <h2>Featured mix</h2>
-          <span class="tag">SoundCloud</span>
+          <h2>Media</h2>
+          <span class="tag">Links</span>
         </div>
 
-        <div class="media">
-          <div class="embed" aria-label="SoundCloud embed">
-            <!-- Replace the src below with your buddy’s SoundCloud embed link -->
-            <iframe
-              src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/encodedna/sets/top-10-english-songs&color=%230b0d12&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
-              title="SoundCloud player"
-              loading="lazy"
-              referrerpolicy="no-referrer"
-              allow="autoplay">
-            </iframe>
+        <div class="mediaCard">
+          <div class="mediaBlock">
+            <b>Follow + preview</b>
+            <p>
+              No mixes linked yet — for now, Instagram is the best place to see clips, live sets, and updates.
+              When a SoundCloud link is ready, we’ll add it here in one line.
+            </p>
+            <div class="mediaActions">
+              <a class="btn primary" id="igMediaBtn" href="#" target="_blank" rel="noopener">Open Instagram</a>
+              <a class="btn" id="scMediaBtn" href="#" target="_blank" rel="noopener" style="display:none;">Open SoundCloud</a>
+            </div>
           </div>
 
-          <div class="note" id="mixNote">
-            Swap this embed with a real SoundCloud mix. This section helps convert visitors who want to hear the vibe before booking.
+          <div class="mediaBlock">
+            <b>Want to book fast?</b>
+            <p>Hit “Book now” and send event details. You’ll get availability + a quote back.</p>
+            <div class="mediaActions">
+              <a class="btn" href="#pricing">View packages</a>
+              <a class="btn primary" href="#booking">Book now</a>
+            </div>
           </div>
         </div>
       </div>
@@ -557,7 +568,7 @@
       </div>
       <div class="social">
         <a class="chip" id="igChip" href="#" target="_blank" rel="noopener">Instagram</a>
-        <a class="chip" id="scChip" href="#" target="_blank" rel="noopener">SoundCloud</a>
+        <a class="chip" id="scChip" href="#" target="_blank" rel="noopener" style="display:none;">SoundCloud</a>
       </div>
       <div class="chip">© <span id="year"></span></div>
     </div>
@@ -571,7 +582,7 @@
       headline: "High-energy sets. Clean transitions. Packed dancefloors.",
       subhead: "Weddings, clubs, private events, corporate nights — tailored music, professional sound, and a smooth experience from first message to last track.",
       instagramUrl: "https://www.instagram.com/reupdotcom/",
-      soundcloudUrl: "https://soundcloud.com/",
+      soundcloudUrl: "", // add later when you have it (then SoundCloud buttons appear automatically)
       // Formspree endpoint example: "https://formspree.io/f/xxxxxxxx"
       FORM_ACTION: "" // leave blank for now (site will show friendly error on submit)
     };
@@ -580,14 +591,28 @@
     document.title = `DJ Booking — ${SITE.brandName}`;
     document.getElementById("brandName").textContent = SITE.brandName;
     document.querySelectorAll("footer .brand span:last-child").forEach(el => el.textContent = SITE.brandName);
+
     document.getElementById("locationText").textContent = SITE.locationLine;
     document.getElementById("headline").textContent = SITE.headline;
     document.getElementById("subhead").textContent = SITE.subhead;
 
-    const ig = [document.getElementById("igBtn"), document.getElementById("igChip")];
-    ig.forEach(a => { a.href = SITE.instagramUrl; });
+    // Instagram
+    const igLinks = [
+      document.getElementById("igBtn"),
+      document.getElementById("igChip"),
+      document.getElementById("igMediaBtn"),
+    ];
+    igLinks.forEach(a => { a.href = SITE.instagramUrl; });
 
-    document.getElementById("scChip").href = SITE.soundcloudUrl;
+    // SoundCloud (only show if configured)
+    const scChip = document.getElementById("scChip");
+    const scMediaBtn = document.getElementById("scMediaBtn");
+    if (SITE.soundcloudUrl && SITE.soundcloudUrl.trim().length > 0) {
+      scChip.style.display = "inline-flex";
+      scMediaBtn.style.display = "inline-flex";
+      scChip.href = SITE.soundcloudUrl;
+      scMediaBtn.href = SITE.soundcloudUrl;
+    }
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -602,7 +627,7 @@
       errorBox.style.display = "none";
 
       if (!SITE.FORM_ACTION) {
-        errorBox.textContent = "⚠️ Form endpoint not set yet. Add a Formspree URL to SITE.FORM_ACTION or use Instagram DM for now.";
+        errorBox.textContent = "⚠️ Form endpoint not set yet. Add a Formspree URL to SITE.FORM_ACTION or DM on Instagram for now.";
         errorBox.style.display = "block";
         return;
       }
